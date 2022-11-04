@@ -8,17 +8,18 @@ import (
 )
 
 var (
-	endpoint			[]byte
-	serviceRegionDataTransport	*ServiceRegionDataTransport
+	//go:embed endpoint/endpoint.json
+	endpoint                   []byte
+	serviceRegionDataTransport *ServiceRegionDataTransport
 )
 
 func init() {
 	regionData := ServiceRegionData{}
 	_ = json.Unmarshal(endpoint, &regionData)
 	serviceRegionDataTransport = &ServiceRegionDataTransport{
-		Partitions:	map[string]AwsPartition{},
-		region:		make(map[string]string),
-		regionSet:	make(map[string]struct{}),
+		Partitions: map[string]AwsPartition{},
+		region:     make(map[string]string),
+		regionSet:  make(map[string]struct{}),
 	}
 
 	for _, partition := range regionData.Partitions {
@@ -33,9 +34,9 @@ func init() {
 }
 
 type ServiceRegionDataTransport struct {
-	Partitions	map[string]AwsPartition
-	region		map[string]string
-	regionSet	map[string]struct{}
+	Partitions map[string]AwsPartition
+	region     map[string]string
+	regionSet  map[string]struct{}
 }
 
 func isRegionService(service string, region string) bool {
@@ -58,9 +59,9 @@ type ServiceRegionData struct {
 }
 
 type AwsPartition struct {
-	Partition	string	`json:"Partition"`
-	PartitionName	string	`json:"partitionName"`
-	Services	map[string]*Endpoints
+	Partition     string `json:"Partition"`
+	PartitionName string `json:"partitionName"`
+	Services      map[string]*Endpoints
 }
 
 type Endpoints struct {
