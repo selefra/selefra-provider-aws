@@ -8,9 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/aws/aws-sdk-go-v2/aws/arn"
-
 	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/aws/arn"
 	"github.com/aws/aws-sdk-go-v2/aws/retry"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials/stscreds"
@@ -23,8 +22,8 @@ import (
 )
 
 const (
-	defaultRegion		= "us-east-1"
-	cloudfrontScopeRegion	= defaultRegion
+	defaultRegion         = "us-east-1"
+	cloudfrontScopeRegion = defaultRegion
 )
 
 var envVarsToCheck = []string{
@@ -50,26 +49,26 @@ func checkEnvVariables() string {
 type Option func(client *Client)
 
 type AwsOrg struct {
-	OrganizationUnits		[]string	`yaml:"organization_units,omitempty"  mapstructure:"organization_units"`
-	AdminAccount			*AwsAccount	`yaml:"admin_account"  mapstructure:"admin_account"`
-	MemberCredentials		*AwsAccount	`yaml:"member_trusted_principal"  mapstructure:"member_trusted_principal"`
-	ChildAccountRoleName		string		`yaml:"member_role_name,omitempty"  mapstructure:"member_role_name"`
-	ChildAccountRoleSessionName	string		`yaml:"member_role_session_name,omitempty"  mapstructure:"member_role_session_name"`
-	ChildAccountExternalID		string		`yaml:"member_external_id,omitempty"  mapstructure:"member_external_id"`
-	ChildAccountRegions		[]string	`yaml:"member_regions,omitempty"  mapstructure:"member_regions"`
+	OrganizationUnits           []string    `yaml:"organization_units,omitempty"  mapstructure:"organization_units"`
+	AdminAccount                *AwsAccount `yaml:"admin_account"  mapstructure:"admin_account"`
+	MemberCredentials           *AwsAccount `yaml:"member_trusted_principal"  mapstructure:"member_trusted_principal"`
+	ChildAccountRoleName        string      `yaml:"member_role_name,omitempty"  mapstructure:"member_role_name"`
+	ChildAccountRoleSessionName string      `yaml:"member_role_session_name,omitempty"  mapstructure:"member_role_session_name"`
+	ChildAccountExternalID      string      `yaml:"member_external_id,omitempty"  mapstructure:"member_external_id"`
+	ChildAccountRegions         []string    `yaml:"member_regions,omitempty"  mapstructure:"member_regions"`
 }
 
 type AwsAccount struct {
-	AccountName		string		`yaml:"account_name,omitempty"  mapstructure:"account_name"`
-	SharedConfigProfile	string		`yaml:"shared_config_profile,omitempty"  mapstructure:"shared_config_profile"`
-	SharedConfigFiles	[]string	`yaml:"shared_config_files"  mapstructure:"shared_config_files"`
-	SharedCredentialsFiles	[]string	`yaml:"shared_credentials_files"  mapstructure:"shared_credentials_files"`
-	RoleARN			string		`yaml:"role_arn,omitempty"  mapstructure:"role_arn"`
-	RoleSessionName		string		`yaml:"role_session_name,omitempty"  mapstructure:"role_session_name"`
-	ExternalID		string		`yaml:"external_id,omitempty"  mapstructure:"external_id"`
-	DefaultRegion		string		`yaml:"default_region,omitempty"  mapstructure:"default_region"`
-	Regions			[]string	`yaml:"regions,omitempty"  mapstructure:"regions"`
-	source			string
+	AccountName            string   `yaml:"account_name,omitempty"  mapstructure:"account_name"`
+	SharedConfigProfile    string   `yaml:"shared_config_profile,omitempty"  mapstructure:"shared_config_profile"`
+	SharedConfigFiles      []string `yaml:"shared_config_files"  mapstructure:"shared_config_files"`
+	SharedCredentialsFiles []string `yaml:"shared_credentials_files"  mapstructure:"shared_credentials_files"`
+	RoleARN                string   `yaml:"role_arn,omitempty"  mapstructure:"role_arn"`
+	RoleSessionName        string   `yaml:"role_session_name,omitempty"  mapstructure:"role_session_name"`
+	ExternalID             string   `yaml:"external_id,omitempty"  mapstructure:"external_id"`
+	DefaultRegion          string   `yaml:"default_region,omitempty"  mapstructure:"default_region"`
+	Regions                []string `yaml:"regions,omitempty"  mapstructure:"regions"`
+	source                 string
 }
 
 type AwsProviderConfigs struct {
@@ -77,16 +76,16 @@ type AwsProviderConfigs struct {
 }
 
 const (
-	DefaultMaxAttempts	= 10
-	DefaultMaxBackoff	= 30
+	DefaultMaxAttempts = 10
+	DefaultMaxBackoff  = 30
 )
 
 type AwsProviderConfig struct {
-	Accounts	[]AwsAccount	`yaml:"accounts"  mapstructure:"accounts"`
-	MaxAttempts	int		`yaml:"max_attempts,omitempty"  mapstructure:"max_attempts"`
-	MaxBackoff	int		`yaml:"max_backoff,omitempty" mapstructure:"max_backoff"`
-	Organization	*AwsOrg		`yaml:"org" mapstructure:"org"`
-	Regions		[]string
+	Accounts     []AwsAccount `yaml:"accounts"  mapstructure:"accounts"`
+	MaxAttempts  int          `yaml:"max_attempts,omitempty"  mapstructure:"max_attempts"`
+	MaxBackoff   int          `yaml:"max_backoff,omitempty" mapstructure:"max_backoff"`
+	Organization *AwsOrg      `yaml:"org" mapstructure:"org"`
+	Regions      []string
 }
 
 func verifyRegions(regions []string) error {
@@ -169,6 +168,10 @@ func newAwsConfig(ctx context.Context, cfg *AwsProviderConfig, account AwsAccoun
 		configFns = append(configFns, config.WithSharedConfigFiles(account.SharedConfigFiles))
 	}
 
+	if len(account.SharedCredentialsFiles) != 0 {
+		configFns = append(configFns, config.WithSharedCredentialsFiles(account.SharedCredentialsFiles))
+	}
+
 	if account.DefaultRegion != "" {
 		configFns = append(configFns, config.WithDefaultRegion(account.DefaultRegion))
 	}
@@ -212,16 +215,16 @@ func newAwsConfig(ctx context.Context, cfg *AwsProviderConfig, account AwsAccoun
 }
 
 type Client struct {
-	config	aws.Config
+	config aws.Config
 
-	Partition	string
-	AccountID	string
-	Region		string
+	Partition string
+	AccountID string
+	Region    string
 
-	AutoscalingNamespace	string
-	WAFScope		types.Scope
+	AutoscalingNamespace string
+	WAFScope             types.Scope
 
-	accountAwsServiceManager	*AwsServicesManager
+	accountAwsServiceManager *AwsServicesManager
 }
 
 func NewClients(configs AwsProviderConfigs) ([]*Client, error) {
@@ -267,8 +270,8 @@ func newClient(config AwsProviderConfig) ([]*Client, error) {
 
 	if len(accounts) == 0 {
 		accounts = append(accounts, AwsAccount{
-			AccountName:	"default",
-			source:		"default",
+			AccountName: "default",
+			source:      "default",
 		})
 	}
 	for _, account := range accounts {
@@ -377,13 +380,13 @@ func newClient(config AwsProviderConfig) ([]*Client, error) {
 
 func (c *Client) Copy(opts ...Option) *Client {
 	cc := &Client{
-		config:				c.config,
-		AccountID:			c.AccountID,
-		Region:				c.Region,
-		AutoscalingNamespace:		c.AutoscalingNamespace,
-		WAFScope:			c.WAFScope,
-		Partition:			c.Partition,
-		accountAwsServiceManager:	c.accountAwsServiceManager,
+		config:                   c.config,
+		AccountID:                c.AccountID,
+		Region:                   c.Region,
+		AutoscalingNamespace:     c.AutoscalingNamespace,
+		WAFScope:                 c.WAFScope,
+		Partition:                c.Partition,
+		accountAwsServiceManager: c.accountAwsServiceManager,
 	}
 	for _, opt := range opts {
 		opt(cc)
@@ -480,11 +483,11 @@ func (c *Client) ARN(service string, idParts ...string) string {
 
 func NewAwsClient(cfg aws.Config, ops ...Option) *Client {
 	cli := &Client{
-		config:			cfg,
-		Region:			defaultRegion,
-		AutoscalingNamespace:	"",
-		WAFScope:		"",
-		Partition:		"",
+		config:               cfg,
+		Region:               defaultRegion,
+		AutoscalingNamespace: "",
+		WAFScope:             "",
+		Partition:            "",
 	}
 	for _, op := range ops {
 		op(cli)
