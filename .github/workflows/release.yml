@@ -23,6 +23,27 @@ jobs:
       - name: git
         run: git config --global url.https://${{ secrets.SELEFRA_TOKEN }}@github.com/.insteadOf https://github.com/
       - name: Run GoReleaser
+        if: "github.event.release.prerelease"
+        uses: goreleaser/goreleaser-action@v3
+        with:
+          version: latest
+          args: release --skip-publish --timeout 120m
+        env:
+          GITHUB_TOKEN: ${{ secrets.SELEFRA_TOKEN }}
+
+      - name: Release
+        if: "github.event.release.prerelease"
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/*checksums.txt
+            dist/*.tar.gz
+          prerelease: true
+          generate_release_notes: true
+          token: ${{ secrets.SELEFRA_TOKEN }}
+
+      - name: Run GoReleaser
+        if: "!github.event.release.prerelease"
         uses: goreleaser/goreleaser-action@v3
         with:
           version: latest
@@ -31,6 +52,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.SELEFRA_TOKEN }}
 
       - name: registry
+        if: "!github.event.release.prerelease"
         env:
           SELEFRA_TOKEN: ${{ secrets.SELEFRA_TOKEN }}
         run: |
