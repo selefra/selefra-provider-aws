@@ -26,12 +26,12 @@ for f in $FOR; do
   windows_arm64=`cat selefra-provider-aws* | grep windows_arm64 | awk -F ' ' '{print $1}'`
   sed "${sedi[@]}" "s#{{.PackageName}}#selefra-provider-aws#g" provider/aws/$version/supplement.yaml
   sed "${sedi[@]}" "s#{{.Source}}#https://github.com/selefra/selefra-provider-aws#g" provider/aws/$version/supplement.yaml
-  sed "${sedi[@]}" "s#{{.CheckSumLinuxARM64}}#${darwin_arm64}#g" provider/aws/$version/supplement.yaml
-  sed "${sedi[@]}" "s#{{.CheckSumLinuxAMD64}}#${darwin_amd64}#g" provider/aws/$version/supplement.yaml
-  sed "${sedi[@]}" "s#{{.CheckSumWindowsARM64}}#${windows_amd64}#g" provider/aws/$version/supplement.yaml
-  sed "${sedi[@]}" "s#{{.CheckSumWindowsAMD64}}#${linux_amd64}#g" provider/aws/$version/supplement.yaml
-  sed "${sedi[@]}" "s#{{.CheckSumDarwinARM64}}#${linux_arm64}#g" provider/aws/$version/supplement.yaml
-  sed "${sedi[@]}" "s#{{.CheckSumDarwinAMD64}}#${windows_arm64}#g" provider/aws/$version/supplement.yaml
+  sed "${sedi[@]}" "s#{{.CheckSumLinuxARM64}}#${linux_arm64}#g" provider/aws/$version/supplement.yaml
+  sed "${sedi[@]}" "s#{{.CheckSumLinuxAMD64}}#${linux_amd64}#g" provider/aws/$version/supplement.yaml
+  sed "${sedi[@]}" "s#{{.CheckSumWindowsARM64}}#${windows_arm64}#g" provider/aws/$version/supplement.yaml
+  sed "${sedi[@]}" "s#{{.CheckSumWindowsAMD64}}#${windows_amd64}#g" provider/aws/$version/supplement.yaml
+  sed "${sedi[@]}" "s#{{.CheckSumDarwinARM64}}#${darwin_arm64}#g" provider/aws/$version/supplement.yaml
+  sed "${sedi[@]}" "s#{{.CheckSumDarwinAMD64}}#${darwin_amd64}#g" provider/aws/$version/supplement.yaml
 done
 
 if [[ "$VERSION" != "$version" ]]; then
