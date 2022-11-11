@@ -36,7 +36,7 @@ func TestProvider_PullTable(t *testing.T) {
 `
 	myProvider := GetProvider()
 
-	Pull(myProvider, config, wk, "aws_ec2_instances")
+	Pull(myProvider, config, wk, "aws_iam_credential_reports")
 
 }
 
@@ -54,12 +54,12 @@ func Pull(myProvider *provider.Provider, config, workspace string, pullTables ..
 
 	initProviderRequest := &shard.ProviderInitRequest{
 		Storage: &shard.Storage{
-			Type:		0,
-			StorageOptions:	json_util.ToJsonBytes(postgresql_storage.NewPostgresqlStorageOptions(env.GetDatabaseDsn())),
+			Type:           0,
+			StorageOptions: json_util.ToJsonBytes(postgresql_storage.NewPostgresqlStorageOptions(env.GetDatabaseDsn())),
 		},
-		Workspace:	&workspace,
-		IsInstallInit:	pointer.TruePointer(),
-		ProviderConfig:	&config,
+		Workspace:      &workspace,
+		IsInstallInit:  pointer.TruePointer(),
+		ProviderConfig: &config,
 	}
 
 	response, err := myProvider.Init(context.Background(), initProviderRequest)
@@ -71,9 +71,9 @@ func Pull(myProvider *provider.Provider, config, workspace string, pullTables ..
 	}
 
 	err = myProvider.PullTables(context.Background(), &shard.PullTablesRequest{
-		Tables:		pullTables,
-		MaxGoroutines:	1000,
-		Timeout:	1000 * 60 * 60,
+		Tables:        pullTables,
+		MaxGoroutines: 1000,
+		Timeout:       1000 * 60 * 60,
 	}, shard.NewFakeProviderServerSender())
 	if err != nil {
 		panic(diagnostics.AddFatal("provider pull table error: %s", err.Error()).ToString())
