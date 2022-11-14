@@ -11,7 +11,7 @@ v0.0.3
 # Install 
 
 ```
-selefre  provider install aws
+selefra  provider install aws
 ```
 
 
