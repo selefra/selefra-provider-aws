@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/selefra/selefra-provider-sdk/env"
 	"github.com/selefra/selefra-provider-sdk/grpc/shard"
@@ -36,7 +37,10 @@ func TestProvider_PullTable(t *testing.T) {
 `
 	myProvider := GetProvider()
 
-	Pull(myProvider, config, wk, "aws_iam_credential_reports")
+	beginTime := time.Now()
+	Pull(myProvider, config, wk, "*")
+	cost := time.Now().Sub(beginTime).String()
+	fmt.Print(cost)
 
 }
 
