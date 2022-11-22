@@ -495,6 +495,12 @@ github.com/selefra/selefra-provider-sdk v0.0.9-0.20221116080746-cd72368166ab h1:
 github.com/selefra/selefra-provider-sdk v0.0.9-0.20221116080746-cd72368166ab/go.mod h1:tC+IhN2fCXLn9jbdEodgOB1CX3640m79+pno+lWiG2Y=
 github.com/selefra/selefra-provider-sdk v0.0.12 h1:vA81mKVQhpesm2LJkEAAhm4cMhOoRf8T8zPcWbdSTJI=
 github.com/selefra/selefra-provider-sdk v0.0.12/go.mod h1:tC+IhN2fCXLn9jbdEodgOB1CX3640m79+pno+lWiG2Y=
+github.com/selefra/selefra-provider-sdk v0.0.13-0.20221116115639-715f4df2ec35 h1:jZQTLAGS6y/Y41umQ1/wXTCiXtoeg1YItkUJIrBwh0I=
+github.com/selefra/selefra-provider-sdk v0.0.13-0.20221116115639-715f4df2ec35/go.mod h1:tC+IhN2fCXLn9jbdEodgOB1CX3640m79+pno+lWiG2Y=
+github.com/selefra/selefra-provider-sdk v0.0.13-0.20221117025044-021b575668f6 h1:WyvwflSXWXgggywMywT1ENBodlKL9SlcEvMiYcczMVI=
+github.com/selefra/selefra-provider-sdk v0.0.13-0.20221117025044-021b575668f6/go.mod h1:tC+IhN2fCXLn9jbdEodgOB1CX3640m79+pno+lWiG2Y=
+github.com/selefra/selefra-provider-sdk v0.0.13-0.20221122030012-9a205444bacb h1:NqVDKsB1qm0RdKFq6PrGydzQUFI+5BkXkQ92x0N7mn4=
+github.com/selefra/selefra-provider-sdk v0.0.13-0.20221122030012-9a205444bacb/go.mod h1:tC+IhN2fCXLn9jbdEodgOB1CX3640m79+pno+lWiG2Y=
 github.com/selefra/selefra-utils v0.0.2 h1:Z3cAmMoTr6XePiZJakRmLVi7CvMjZ4ypt8TO73M03F0=
 github.com/selefra/selefra-utils v0.0.2/go.mod h1:LPY6RNU12IniRH3xz7yS7xF10YH3emQ6NWrn6UuBjEk=
 github.com/shopspring/decimal v0.0.0-20180709203117-cd690d0c9e24/go.mod h1:M+9NzErvs504Cn4c5DxATwIqPbtswREoFCre64PpcG4=
