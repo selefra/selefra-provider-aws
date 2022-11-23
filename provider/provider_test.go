@@ -17,8 +17,6 @@ import (
 
 func TestProvider_PullTable(t *testing.T) {
 
-	fmt.Println(env.GetDatabaseDsn())
-
 	wk := "."
 	config := `providers:
     # provider configurations
@@ -28,8 +26,8 @@ func TestProvider_PullTable(t *testing.T) {
         #     Optional. User identification
         - account_name: t1
           #    Optional. Named profile in config or credential file from where Selefra should grab credentials
-      #    shared_credentials_files: "/Users/songzhibin/go/src/aqgs/selefra-provider-aws/config.ini"
-      #    shared_config_profile: "shubo"
+      #    shared_credentials_files: "/Users/xx/go/src/aqgs/selefra-provider-aws/config.ini"
+      #    shared_config_profile: "xx"
       #    The maximum number of times that a request will be retried for failures. Defaults to 10 retry attempts.
       max_attempts: 10
       #    The maximum back off delay between attempts. The backoff delays exponentially with a jitter based on the number of attempts. Defaults to 30 seconds.
@@ -38,7 +36,7 @@ func TestProvider_PullTable(t *testing.T) {
 	myProvider := GetProvider()
 
 	beginTime := time.Now()
-	Pull(myProvider, config, wk, "*")
+	Pull(myProvider, config, wk, "aws_s3_buckets")
 	cost := time.Now().Sub(beginTime).String()
 	fmt.Print(cost)
 
