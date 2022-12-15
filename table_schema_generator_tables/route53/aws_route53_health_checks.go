@@ -57,8 +57,8 @@ func (x *TableAwsRoute53HealthChecksGenerator) GetDataSource() *schema.DataSourc
 				}
 				for _, h := range healthChecks {
 					wrapper := Route53HealthCheckWrapper{
-						HealthCheck:	h,
-						Tags:		aws_client.TagsToMap(getRoute53tagsByResourceID(*h.Id, tagsResponse.ResourceTagSets)),
+						HealthCheck: h,
+						Tags:        aws_client.TagsToMap(getRoute53tagsByResourceID(*h.Id, tagsResponse.ResourceTagSets)),
 					}
 					resultChannel <- wrapper
 				}
@@ -98,7 +98,7 @@ func (x *TableAwsRoute53HealthChecksGenerator) GetDataSource() *schema.DataSourc
 
 type Route53HealthCheckWrapper struct {
 	types.HealthCheck
-	Tags	map[string]string
+	Tags map[string]string
 }
 
 func getRoute53tagsByResourceID(id string, set []types.ResourceTagSet) []types.Tag {
@@ -134,11 +134,11 @@ func (x *TableAwsRoute53HealthChecksGenerator) GetColumns() []*schema.Column {
 
 				cl := client.(*aws_client.Client)
 				return arn.ARN{
-					Partition:	cl.Partition,
-					Service:	"route53",
-					Region:		"",
-					AccountID:	"",
-					Resource:	strings.Join(ids, "/"),
+					Partition: cl.Partition,
+					Service:   "route53",
+					Region:    "",
+					AccountID: "",
+					Resource:  strings.Join(ids, "/"),
 				}.String(), nil
 			})).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("tags").ColumnType(schema.ColumnTypeJSON).Description("`The tags associated with the health check.`").Build(),
@@ -170,7 +170,7 @@ func (x *TableAwsRoute53HealthChecksGenerator) GetColumns() []*schema.Column {
 				}
 			})).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("health_check_config").ColumnType(schema.ColumnTypeJSON).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("health_check_version").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("health_check_version").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("cloud_watch_alarm_configuration").ColumnType(schema.ColumnTypeJSON).Build(),
 	}

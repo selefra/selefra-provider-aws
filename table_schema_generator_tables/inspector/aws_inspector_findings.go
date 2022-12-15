@@ -76,13 +76,13 @@ func (x *TableAwsInspectorFindingsGenerator) GetExpandClientTask() func(ctx cont
 func (x *TableAwsInspectorFindingsGenerator) GetColumns() []*schema.Column {
 	return []*schema.Column{
 		table_schema_generator.NewColumnBuilder().ColumnName("indicator_of_compromise").ColumnType(schema.ColumnTypeBool).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("schema_version").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("schema_version").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("attributes").ColumnType(schema.ColumnTypeJSON).
 			Extractor(aws_client.TagsExtractor("Attributes")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("user_attributes").ColumnType(schema.ColumnTypeJSON).
 			Extractor(aws_client.TagsExtractor("UserAttributes")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("created_at").ColumnType(schema.ColumnTypeTimestamp).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("confidence").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("confidence").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("description").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("service_attributes").ColumnType(schema.ColumnTypeJSON).Build(),

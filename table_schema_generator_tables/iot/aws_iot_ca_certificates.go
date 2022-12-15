@@ -89,8 +89,8 @@ func (x *TableAwsIotCaCertificatesGenerator) GetColumns() []*schema.Column {
 					cl := client.(*aws_client.Client)
 					svc := cl.AwsServices().IOT
 					input := iot.ListCertificatesByCAInput{
-						CaCertificateId:	i.CertificateId,
-						PageSize:		aws.Int32(250),
+						CaCertificateId: i.CertificateId,
+						PageSize:        aws.Int32(250),
 					}
 
 					var certs []string
@@ -119,7 +119,7 @@ func (x *TableAwsIotCaCertificatesGenerator) GetColumns() []*schema.Column {
 				}
 			})).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("certificate_id").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("customer_version").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("customer_version").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("certificate_mode").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("creation_date").ColumnType(schema.ColumnTypeTimestamp).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("generation_id").ColumnType(schema.ColumnTypeString).Build(),

@@ -58,9 +58,9 @@ func (x *TableAwsWafv2RuleGroupsGenerator) GetDataSource() *schema.DataSource {
 					ruleGroupOutput := result.(types.RuleGroupSummary)
 
 					ruleGroup, err := svc.GetRuleGroup(ctx, &wafv2.GetRuleGroupInput{
-						Name:	ruleGroupOutput.Name,
-						Id:	ruleGroupOutput.Id,
-						Scope:	c.WAFScope,
+						Name:  ruleGroupOutput.Name,
+						Id:    ruleGroupOutput.Id,
+						Scope: c.WAFScope,
 					})
 					if err != nil {
 						return nil, err
@@ -92,7 +92,7 @@ func (x *TableAwsWafv2RuleGroupsGenerator) GetColumns() []*schema.Column {
 		table_schema_generator.NewColumnBuilder().ColumnName("description").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("available_labels").ColumnType(schema.ColumnTypeJSON).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("custom_response_bodies").ColumnType(schema.ColumnTypeJSON).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("capacity").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("capacity").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("name").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("visibility_config").ColumnType(schema.ColumnTypeJSON).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("account_id").ColumnType(schema.ColumnTypeString).

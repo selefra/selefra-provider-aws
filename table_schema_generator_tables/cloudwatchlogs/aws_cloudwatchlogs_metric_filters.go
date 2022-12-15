@@ -80,11 +80,11 @@ func (x *TableAwsCloudwatchlogsMetricFiltersGenerator) GetColumns() []*schema.Co
 				extractor := func() (any, error) {
 					cl := client.(*aws_client.Client)
 					a := arn.ARN{
-						Partition:	cl.Partition,
-						Service:	"cloudwatchlogs",
-						Region:		cl.Region,
-						AccountID:	cl.AccountID,
-						Resource:	"metric_filter/" + aws.ToString(result.(types.MetricFilter).FilterName),
+						Partition: cl.Partition,
+						Service:   "cloudwatchlogs",
+						Region:    cl.Region,
+						AccountID: cl.AccountID,
+						Resource:  "metric_filter/" + aws.ToString(result.(types.MetricFilter).FilterName),
 					}
 					return a.String(), nil
 				}
@@ -95,7 +95,7 @@ func (x *TableAwsCloudwatchlogsMetricFiltersGenerator) GetColumns() []*schema.Co
 					return extractResultValue, nil
 				}
 			})).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("creation_time").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("creation_time").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("filter_pattern").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("account_id").ColumnType(schema.ColumnTypeString).
 			Extractor(aws_client.AwsAccountIDExtractor()).Build(),

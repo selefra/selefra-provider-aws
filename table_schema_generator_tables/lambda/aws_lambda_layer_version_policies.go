@@ -42,8 +42,8 @@ func (x *TableAwsLambdaLayerVersionPoliciesGenerator) GetDataSource() *schema.Da
 			svc := c.AwsServices().Lambda
 
 			config := lambda.GetLayerVersionPolicyInput{
-				LayerName:	pp.LayerName,
-				VersionNumber:	p.Version,
+				LayerName:     pp.LayerName,
+				VersionNumber: p.Version,
 			}
 
 			output, err := svc.GetLayerVersionPolicy(ctx, &config)
@@ -80,7 +80,7 @@ func (x *TableAwsLambdaLayerVersionPoliciesGenerator) GetColumns() []*schema.Col
 		table_schema_generator.NewColumnBuilder().ColumnName("policy").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("aws_lambda_layer_versions_selefra_id").ColumnType(schema.ColumnTypeString).SetNotNull().Description("fk to aws_lambda_layer_versions.selefra_id").
 			Extractor(column_value_extractor.ParentColumnValue("selefra_id")).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("layer_version").ColumnType(schema.ColumnTypeInt).
+		table_schema_generator.NewColumnBuilder().ColumnName("layer_version").ColumnType(schema.ColumnTypeBigInt).
 			Extractor(column_value_extractor.ParentColumnValue("version")).Build(),
 	}
 }

@@ -62,9 +62,9 @@ func (x *TableAwsEcsClusterTasksGenerator) GetDataSource() *schema.DataSource {
 					return nil
 				}
 				describeServicesInput := ecs.DescribeTasksInput{
-					Cluster:	cluster.ClusterArn,
-					Tasks:		listTasks.TaskArns,
-					Include:	[]types.TaskField{types.TaskFieldTags},
+					Cluster: cluster.ClusterArn,
+					Tasks:   listTasks.TaskArns,
+					Include: []types.TaskField{types.TaskFieldTags},
 				}
 				describeTasks, err := svc.DescribeTasks(ctx, &describeServicesInput, func(o *ecs.Options) {
 					o.Region = region
@@ -107,7 +107,7 @@ func (x *TableAwsEcsClusterTasksGenerator) GetColumns() []*schema.Column {
 		table_schema_generator.NewColumnBuilder().ColumnName("created_at").ColumnType(schema.ColumnTypeTimestamp).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("desired_status").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("group").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("version").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("version").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("account_id").ColumnType(schema.ColumnTypeString).
 			Extractor(aws_client.AwsAccountIDExtractor()).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("region").ColumnType(schema.ColumnTypeString).

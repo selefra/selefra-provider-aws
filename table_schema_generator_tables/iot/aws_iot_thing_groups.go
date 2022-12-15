@@ -84,7 +84,7 @@ func (x *TableAwsIotThingGroupsGenerator) GetColumns() []*schema.Column {
 			Extractor(aws_client.AwsRegionIDExtractor()).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("thing_group_id").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("thing_group_name").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("version").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("version").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).SetUnique().Description("primary keys value md5").
 			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("things_in_group").ColumnType(schema.ColumnTypeStringArray).
@@ -96,8 +96,8 @@ func (x *TableAwsIotThingGroupsGenerator) GetColumns() []*schema.Column {
 					cl := client.(*aws_client.Client)
 					svc := cl.AwsServices().IOT
 					input := iot.ListThingsInThingGroupInput{
-						ThingGroupName:	i.ThingGroupName,
-						MaxResults:	aws.Int32(250),
+						ThingGroupName: i.ThingGroupName,
+						MaxResults:     aws.Int32(250),
 					}
 
 					var things []string
@@ -141,8 +141,8 @@ func (x *TableAwsIotThingGroupsGenerator) GetColumns() []*schema.Column {
 					cl := client.(*aws_client.Client)
 					svc := cl.AwsServices().IOT
 					input := iot.ListAttachedPoliciesInput{
-						Target:		i.ThingGroupArn,
-						PageSize:	aws.Int32(250),
+						Target:   i.ThingGroupArn,
+						PageSize: aws.Int32(250),
 					}
 
 					var policies []string

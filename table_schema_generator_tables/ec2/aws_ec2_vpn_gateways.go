@@ -76,11 +76,11 @@ func (x *TableAwsEc2VpnGatewaysGenerator) GetColumns() []*schema.Column {
 					cl := client.(*aws_client.Client)
 					item := result.(types.VpnGateway)
 					a := arn.ARN{
-						Partition:	cl.Partition,
-						Service:	"ec2",
-						Region:		cl.Region,
-						AccountID:	cl.AccountID,
-						Resource:	"vpn_gateway/" + aws.ToString(item.VpnGatewayId),
+						Partition: cl.Partition,
+						Service:   "ec2",
+						Region:    cl.Region,
+						AccountID: cl.AccountID,
+						Resource:  "vpn_gateway/" + aws.ToString(item.VpnGatewayId),
 					}
 					return a.String(), nil
 				}
@@ -96,7 +96,7 @@ func (x *TableAwsEc2VpnGatewaysGenerator) GetColumns() []*schema.Column {
 		table_schema_generator.NewColumnBuilder().ColumnName("vpn_gateway_id").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("account_id").ColumnType(schema.ColumnTypeString).
 			Extractor(aws_client.AwsAccountIDExtractor()).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("amazon_side_asn").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("amazon_side_asn").ColumnType(schema.ColumnTypeBigInt).Build(),
 	}
 }
 

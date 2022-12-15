@@ -72,8 +72,8 @@ func (x *TableAwsDmsReplicationInstancesGenerator) GetDataSource() *schema.DataS
 
 			for _, replicationInstance := range describeReplicationInstancesOutput.ReplicationInstances {
 				wrapper := ReplicationInstanceWrapper{
-					ReplicationInstance:	replicationInstance,
-					Tags:			replicationInstanceTags[*replicationInstance.ReplicationInstanceArn],
+					ReplicationInstance: replicationInstance,
+					Tags:                replicationInstanceTags[*replicationInstance.ReplicationInstanceArn],
 				}
 				resultChannel <- wrapper
 			}
@@ -84,7 +84,7 @@ func (x *TableAwsDmsReplicationInstancesGenerator) GetDataSource() *schema.DataS
 
 type ReplicationInstanceWrapper struct {
 	types.ReplicationInstance
-	Tags	map[string]interface{}
+	Tags map[string]interface{}
 }
 
 func (x *TableAwsDmsReplicationInstancesGenerator) GetExpandClientTask() func(ctx context.Context, clientMeta *schema.ClientMeta, client any, task *schema.DataSourcePullTask) []*schema.ClientTaskContext {
@@ -95,7 +95,7 @@ func (x *TableAwsDmsReplicationInstancesGenerator) GetColumns() []*schema.Column
 	return []*schema.Column{
 		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).SetUnique().Description("primary keys value md5").
 			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("allocated_storage").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("allocated_storage").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("engine_version").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("pending_modified_values").ColumnType(schema.ColumnTypeJSON).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("preferred_maintenance_window").ColumnType(schema.ColumnTypeString).Build(),

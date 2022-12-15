@@ -87,11 +87,11 @@ func (x *TableAwsEc2EbsSnapshotsGenerator) GetColumns() []*schema.Column {
 				extractor := func() (any, error) {
 					cl := client.(*aws_client.Client)
 					a := arn.ARN{
-						Partition:	cl.Partition,
-						Service:	"ec2",
-						Region:		cl.Region,
-						AccountID:	cl.AccountID,
-						Resource:	"snapshot/" + aws.ToString(result.(types.Snapshot).SnapshotId),
+						Partition: cl.Partition,
+						Service:   "ec2",
+						Region:    cl.Region,
+						AccountID: cl.AccountID,
+						Resource:  "snapshot/" + aws.ToString(result.(types.Snapshot).SnapshotId),
 					}
 					return a.String(), nil
 				}
@@ -110,7 +110,7 @@ func (x *TableAwsEc2EbsSnapshotsGenerator) GetColumns() []*schema.Column {
 		table_schema_generator.NewColumnBuilder().ColumnName("data_encryption_key_id").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("owner_alias").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("state").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("volume_size").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("volume_size").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("attribute").ColumnType(schema.ColumnTypeJSON).
 			Extractor(column_value_extractor.WrapperExtractFunction(func(ctx context.Context, clientMeta *schema.ClientMeta, client any,
 				task *schema.DataSourcePullTask, row *schema.Row, column *schema.Column, result any) (any, *schema.Diagnostics) {
@@ -120,8 +120,8 @@ func (x *TableAwsEc2EbsSnapshotsGenerator) GetColumns() []*schema.Column {
 					cl := client.(*aws_client.Client)
 					svc := cl.AwsServices().EC2
 					output, err := svc.DescribeSnapshotAttribute(ctx, &ec2.DescribeSnapshotAttributeInput{
-						Attribute:	types.SnapshotAttributeNameCreateVolumePermission,
-						SnapshotId:	r.SnapshotId,
+						Attribute:  types.SnapshotAttributeNameCreateVolumePermission,
+						SnapshotId: r.SnapshotId,
 					})
 
 					if err != nil {

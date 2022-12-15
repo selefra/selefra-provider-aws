@@ -77,7 +77,7 @@ func (x *TableAwsRoute53HostedZoneResourceRecordSetsGenerator) GetColumns() []*s
 			Extractor(column_value_extractor.ParentColumnValue("arn")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("alias_target").ColumnType(schema.ColumnTypeJSON).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("geo_location").ColumnType(schema.ColumnTypeJSON).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("ttl").ColumnType(schema.ColumnTypeInt).
+		table_schema_generator.NewColumnBuilder().ColumnName("ttl").ColumnType(schema.ColumnTypeBigInt).
 			Extractor(column_value_extractor.StructSelector("TTL")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("traffic_policy_instance_id").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("aws_route53_hosted_zones_selefra_id").ColumnType(schema.ColumnTypeString).SetNotNull().Description("fk to aws_route53_hosted_zones.selefra_id").
@@ -85,7 +85,7 @@ func (x *TableAwsRoute53HostedZoneResourceRecordSetsGenerator) GetColumns() []*s
 		table_schema_generator.NewColumnBuilder().ColumnName("name").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("failover").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("health_check_id").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("weight").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("weight").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).SetUnique().Description("random id").
 			Extractor(column_value_extractor.UUID()).Build(),
 	}

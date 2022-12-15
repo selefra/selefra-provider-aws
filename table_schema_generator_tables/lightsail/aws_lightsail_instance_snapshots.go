@@ -86,7 +86,7 @@ func (x *TableAwsLightsailInstanceSnapshotsGenerator) GetColumns() []*schema.Col
 		table_schema_generator.NewColumnBuilder().ColumnName("from_instance_arn").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("from_instance_name").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("location").ColumnType(schema.ColumnTypeJSON).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("size_in_gb").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("size_in_gb").ColumnType(schema.ColumnTypeBigInt).Build(),
 	}
 }
 

@@ -67,7 +67,7 @@ func (x *TableAwsElasticacheReservedCacheNodesOfferingsGenerator) GetColumns() [
 		table_schema_generator.NewColumnBuilder().ColumnName("account_id").ColumnType(schema.ColumnTypeString).
 			Extractor(aws_client.AwsAccountIDExtractor()).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("cache_node_type").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("duration").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("duration").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("fixed_price").ColumnType(schema.ColumnTypeFloat).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).SetUnique().Description("primary keys value md5").
 			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
@@ -81,11 +81,11 @@ func (x *TableAwsElasticacheReservedCacheNodesOfferingsGenerator) GetColumns() [
 					cl := client.(*aws_client.Client)
 					item := result.(types.ReservedCacheNodesOffering)
 					a := arn.ARN{
-						Partition:	cl.Partition,
-						Service:	"elasticache",
-						Region:		cl.Region,
-						AccountID:	cl.AccountID,
-						Resource:	"elasticache/" + aws.ToString(item.ReservedCacheNodesOfferingId),
+						Partition: cl.Partition,
+						Service:   "elasticache",
+						Region:    cl.Region,
+						AccountID: cl.AccountID,
+						Resource:  "elasticache/" + aws.ToString(item.ReservedCacheNodesOfferingId),
 					}
 					return a.String(), nil
 				}

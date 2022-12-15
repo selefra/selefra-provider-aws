@@ -144,11 +144,11 @@ func (x *TableAwsEc2InstancesGenerator) GetColumns() []*schema.Column {
 					cl := client.(*aws_client.Client)
 					item := result.(types.Instance)
 					a := arn.ARN{
-						Partition:	cl.Partition,
-						Service:	"ec2",
-						Region:		cl.Region,
-						AccountID:	cl.AccountID,
-						Resource:	"instance/" + aws.ToString(item.InstanceId),
+						Partition: cl.Partition,
+						Service:   "ec2",
+						Region:    cl.Region,
+						AccountID: cl.AccountID,
+						Resource:  "instance/" + aws.ToString(item.InstanceId),
 					}
 					return a.String(), nil
 				}
@@ -165,7 +165,7 @@ func (x *TableAwsEc2InstancesGenerator) GetColumns() []*schema.Column {
 		table_schema_generator.NewColumnBuilder().ColumnName("launch_time").ColumnType(schema.ColumnTypeTimestamp).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("placement").ColumnType(schema.ColumnTypeJSON).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("public_dns_name").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("ami_launch_index").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("ami_launch_index").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("elastic_inference_accelerator_associations").ColumnType(schema.ColumnTypeJSON).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("hypervisor").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("metadata_options").ColumnType(schema.ColumnTypeJSON).Build(),

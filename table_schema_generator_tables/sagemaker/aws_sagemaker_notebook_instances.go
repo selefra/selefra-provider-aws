@@ -61,9 +61,9 @@ func (x *TableAwsSagemakerNotebookInstancesGenerator) GetDataSource() *schema.Da
 						return nil, err
 					}
 					return &WrappedSageMakerNotebookInstance{
-						DescribeNotebookInstanceOutput:	response,
-						NotebookInstanceArn:		*n.NotebookInstanceArn,
-						NotebookInstanceName:		*n.NotebookInstanceName,
+						DescribeNotebookInstanceOutput: response,
+						NotebookInstanceArn:            *n.NotebookInstanceArn,
+						NotebookInstanceName:           *n.NotebookInstanceName,
 					}, nil
 
 				})
@@ -79,8 +79,8 @@ func (x *TableAwsSagemakerNotebookInstancesGenerator) GetDataSource() *schema.Da
 
 type WrappedSageMakerNotebookInstance struct {
 	*sagemaker.DescribeNotebookInstanceOutput
-	NotebookInstanceArn	string
-	NotebookInstanceName	string
+	NotebookInstanceArn  string
+	NotebookInstanceName string
 }
 
 func (x *TableAwsSagemakerNotebookInstancesGenerator) GetExpandClientTask() func(ctx context.Context, clientMeta *schema.ClientMeta, client any, task *schema.DataSourcePullTask) []*schema.ClientTaskContext {
@@ -99,7 +99,7 @@ func (x *TableAwsSagemakerNotebookInstancesGenerator) GetColumns() []*schema.Col
 		table_schema_generator.NewColumnBuilder().ColumnName("kms_key_id").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("last_modified_time").ColumnType(schema.ColumnTypeTimestamp).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("notebook_instance_lifecycle_config_name").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("volume_size_in_gb").ColumnType(schema.ColumnTypeInt).
+		table_schema_generator.NewColumnBuilder().ColumnName("volume_size_in_gb").ColumnType(schema.ColumnTypeBigInt).
 			Extractor(column_value_extractor.StructSelector("VolumeSizeInGB")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("network_interface_id").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("role_arn").ColumnType(schema.ColumnTypeString).Build(),
