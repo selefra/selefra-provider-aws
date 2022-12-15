@@ -61,7 +61,7 @@ func (x *TableAwsDirectconnectVirtualInterfacesGenerator) GetExpandClientTask() 
 
 func (x *TableAwsDirectconnectVirtualInterfacesGenerator) GetColumns() []*schema.Column {
 	return []*schema.Column{
-		table_schema_generator.NewColumnBuilder().ColumnName("amazon_side_asn").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("amazon_side_asn").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("aws_logical_device_id").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("virtual_interface_state").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("address_family").ColumnType(schema.ColumnTypeString).Build(),
@@ -71,7 +71,7 @@ func (x *TableAwsDirectconnectVirtualInterfacesGenerator) GetColumns() []*schema
 		table_schema_generator.NewColumnBuilder().ColumnName("auth_key").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("bgp_peers").ColumnType(schema.ColumnTypeJSON).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("customer_router_config").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("mtu").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("mtu").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).SetUnique().Description("primary keys value md5").
 			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("aws_device_v2").ColumnType(schema.ColumnTypeString).Build(),
@@ -96,11 +96,11 @@ func (x *TableAwsDirectconnectVirtualInterfacesGenerator) GetColumns() []*schema
 
 				cl := client.(*aws_client.Client)
 				return arn.ARN{
-					Partition:	cl.Partition,
-					Service:	"directconnect",
-					Region:		cl.Region,
-					AccountID:	cl.AccountID,
-					Resource:	strings.Join(ids, "/"),
+					Partition: cl.Partition,
+					Service:   "directconnect",
+					Region:    cl.Region,
+					AccountID: cl.AccountID,
+					Resource:  strings.Join(ids, "/"),
 				}.String(), nil
 			})).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("account_id").ColumnType(schema.ColumnTypeString).
@@ -109,10 +109,10 @@ func (x *TableAwsDirectconnectVirtualInterfacesGenerator) GetColumns() []*schema
 		table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).
 			Extractor(column_value_extractor.StructSelector("VirtualInterfaceId")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("amazon_address").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("asn").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("asn").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("connection_id").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("site_link_enabled").ColumnType(schema.ColumnTypeBool).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("vlan").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("vlan").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("tags").ColumnType(schema.ColumnTypeJSON).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("location").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("virtual_gateway_id").ColumnType(schema.ColumnTypeString).Build(),

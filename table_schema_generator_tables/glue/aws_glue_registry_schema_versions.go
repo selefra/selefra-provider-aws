@@ -43,8 +43,8 @@ func (x *TableAwsGlueRegistrySchemaVersionsGenerator) GetDataSource() *schema.Da
 				SchemaArn: s.SchemaArn,
 			}
 			input := glue.ListSchemaVersionsInput{
-				SchemaId:	&schemaId,
-				MaxResults:	aws.Int32(100),
+				SchemaId:   &schemaId,
+				MaxResults: aws.Int32(100),
 			}
 			for {
 				result, err := svc.ListSchemaVersions(ctx, &input)
@@ -136,7 +136,7 @@ func (x *TableAwsGlueRegistrySchemaVersionsGenerator) GetColumns() []*schema.Col
 		table_schema_generator.NewColumnBuilder().ColumnName("schema_definition").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("data_format").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("schema_version_id").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("version_number").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("version_number").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).SetUnique().Description("random id").
 			Extractor(column_value_extractor.UUID()).Build(),
 	}

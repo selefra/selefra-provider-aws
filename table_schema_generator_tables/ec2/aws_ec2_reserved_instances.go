@@ -70,11 +70,11 @@ func (x *TableAwsEc2ReservedInstancesGenerator) GetColumns() []*schema.Column {
 					cl := client.(*aws_client.Client)
 					item := result.(types.ReservedInstances)
 					a := arn.ARN{
-						Partition:	cl.Partition,
-						Service:	"ec2",
-						Region:		cl.Region,
-						AccountID:	cl.AccountID,
-						Resource:	"reserved-instance/" + aws.ToString(item.ReservedInstancesId),
+						Partition: cl.Partition,
+						Service:   "ec2",
+						Region:    cl.Region,
+						AccountID: cl.AccountID,
+						Resource:  "reserved-instance/" + aws.ToString(item.ReservedInstancesId),
 					}
 					return a.String(), nil
 				}
@@ -86,8 +86,8 @@ func (x *TableAwsEc2ReservedInstancesGenerator) GetColumns() []*schema.Column {
 				}
 			})).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("currency_code").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("duration").ColumnType(schema.ColumnTypeInt).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("instance_count").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("duration").ColumnType(schema.ColumnTypeBigInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("instance_count").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("instance_type").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("reserved_instances_id").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("account_id").ColumnType(schema.ColumnTypeString).

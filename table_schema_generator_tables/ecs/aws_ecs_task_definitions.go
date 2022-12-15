@@ -55,8 +55,8 @@ func (x *TableAwsEcsTaskDefinitionsGenerator) GetDataSource() *schema.DataSource
 					taskArn := result.(string)
 
 					describeTaskDefinitionOutput, err := svc.DescribeTaskDefinition(ctx, &ecs.DescribeTaskDefinitionInput{
-						TaskDefinition:	aws.String(taskArn),
-						Include:	[]types.TaskDefinitionField{types.TaskDefinitionFieldTags},
+						TaskDefinition: aws.String(taskArn),
+						Include:        []types.TaskDefinitionField{types.TaskDefinitionFieldTags},
 					})
 					if err != nil {
 						return nil, err
@@ -65,8 +65,8 @@ func (x *TableAwsEcsTaskDefinitionsGenerator) GetDataSource() *schema.DataSource
 						return nil, errors.New("nil TaskDefinition encountered")
 					}
 					return TaskDefinitionWrapper{
-						TaskDefinition:	describeTaskDefinitionOutput.TaskDefinition,
-						Tags:		describeTaskDefinitionOutput.Tags,
+						TaskDefinition: describeTaskDefinitionOutput.TaskDefinition,
+						Tags:           describeTaskDefinitionOutput.Tags,
 					}, nil
 
 				})
@@ -82,7 +82,7 @@ func (x *TableAwsEcsTaskDefinitionsGenerator) GetDataSource() *schema.DataSource
 
 type TaskDefinitionWrapper struct {
 	*types.TaskDefinition
-	Tags	[]types.Tag
+	Tags []types.Tag
 }
 
 func (x *TableAwsEcsTaskDefinitionsGenerator) GetExpandClientTask() func(ctx context.Context, clientMeta *schema.ClientMeta, client any, task *schema.DataSourcePullTask) []*schema.ClientTaskContext {
@@ -115,7 +115,7 @@ func (x *TableAwsEcsTaskDefinitionsGenerator) GetColumns() []*schema.Column {
 		table_schema_generator.NewColumnBuilder().ColumnName("tags").ColumnType(schema.ColumnTypeJSON).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("memory").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("requires_compatibilities").ColumnType(schema.ColumnTypeStringArray).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("revision").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("revision").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("region").ColumnType(schema.ColumnTypeString).
 			Extractor(aws_client.AwsRegionIDExtractor()).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("registered_by").ColumnType(schema.ColumnTypeString).Build(),

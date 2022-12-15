@@ -61,24 +61,24 @@ func (x *TableAwsS3BucketCorsRulesGenerator) GetDataSource() *schema.DataSource 
 }
 
 type WrappedBucket struct {
-	CreationDate	*time.Time
+	CreationDate *time.Time
 
-	Name	*string
+	Name *string
 
-	ReplicationRole		*string
-	ReplicationRules	[]types.ReplicationRule
-	Region			string
-	LoggingTargetBucket	*string
-	LoggingTargetPrefix	*string
-	Policy			map[string]interface{}
-	VersioningStatus	types.BucketVersioningStatus
-	VersioningMfaDelete	types.MFADeleteStatus
-	BlockPublicAcls		bool
-	BlockPublicPolicy	bool
-	IgnorePublicAcls	bool
-	RestrictPublicBuckets	bool
-	Tags			map[string]*string
-	OwnershipControls	[]string
+	ReplicationRole       *string
+	ReplicationRules      []types.ReplicationRule
+	Region                string
+	LoggingTargetBucket   *string
+	LoggingTargetPrefix   *string
+	Policy                map[string]interface{}
+	VersioningStatus      types.BucketVersioningStatus
+	VersioningMfaDelete   types.MFADeleteStatus
+	BlockPublicAcls       bool
+	BlockPublicPolicy     bool
+	IgnorePublicAcls      bool
+	RestrictPublicBuckets bool
+	Tags                  map[string]*string
+	OwnershipControls     []string
 }
 
 func (x *TableAwsS3BucketCorsRulesGenerator) GetExpandClientTask() func(ctx context.Context, clientMeta *schema.ClientMeta, client any, task *schema.DataSourcePullTask) []*schema.ClientTaskContext {
@@ -88,7 +88,7 @@ func (x *TableAwsS3BucketCorsRulesGenerator) GetExpandClientTask() func(ctx cont
 func (x *TableAwsS3BucketCorsRulesGenerator) GetColumns() []*schema.Column {
 	return []*schema.Column{
 		table_schema_generator.NewColumnBuilder().ColumnName("allowed_headers").ColumnType(schema.ColumnTypeStringArray).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("max_age_seconds").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("max_age_seconds").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("aws_s3_buckets_selefra_id").ColumnType(schema.ColumnTypeString).SetNotNull().Description("fk to aws_s3_buckets.selefra_id").
 			Extractor(column_value_extractor.ParentColumnValue("selefra_id")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("account_id").ColumnType(schema.ColumnTypeString).

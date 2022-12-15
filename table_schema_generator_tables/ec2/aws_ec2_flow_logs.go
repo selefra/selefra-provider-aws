@@ -80,11 +80,11 @@ func (x *TableAwsEc2FlowLogsGenerator) GetColumns() []*schema.Column {
 					cl := client.(*aws_client.Client)
 					item := result.(types.FlowLog)
 					a := arn.ARN{
-						Partition:	cl.Partition,
-						Service:	"ec2",
-						Region:		cl.Region,
-						AccountID:	cl.AccountID,
-						Resource:	"flow_logs/" + aws.ToString(item.FlowLogId),
+						Partition: cl.Partition,
+						Service:   "ec2",
+						Region:    cl.Region,
+						AccountID: cl.AccountID,
+						Resource:  "flow_logs/" + aws.ToString(item.FlowLogId),
 					}
 					return a.String(), nil
 				}
@@ -109,7 +109,7 @@ func (x *TableAwsEc2FlowLogsGenerator) GetColumns() []*schema.Column {
 			Extractor(aws_client.AwsAccountIDExtractor()).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("deliver_logs_permission_arn").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("log_format").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("max_aggregation_interval").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("max_aggregation_interval").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("deliver_logs_error_message").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("log_destination").ColumnType(schema.ColumnTypeString).Build(),
 	}

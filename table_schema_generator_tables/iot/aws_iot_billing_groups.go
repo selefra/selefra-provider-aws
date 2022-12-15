@@ -88,7 +88,7 @@ func (x *TableAwsIotBillingGroupsGenerator) GetColumns() []*schema.Column {
 			Extractor(column_value_extractor.StructSelector("BillingGroupArn")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("billing_group_id").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("billing_group_properties").ColumnType(schema.ColumnTypeJSON).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("version").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("version").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("result_metadata").ColumnType(schema.ColumnTypeJSON).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).SetUnique().Description("primary keys value md5").
 			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
@@ -103,8 +103,8 @@ func (x *TableAwsIotBillingGroupsGenerator) GetColumns() []*schema.Column {
 					cl := client.(*aws_client.Client)
 					svc := cl.AwsServices().IOT
 					input := iot.ListThingsInBillingGroupInput{
-						BillingGroupName:	i.BillingGroupName,
-						MaxResults:		aws.Int32(250),
+						BillingGroupName: i.BillingGroupName,
+						MaxResults:       aws.Int32(250),
 					}
 
 					var things []string

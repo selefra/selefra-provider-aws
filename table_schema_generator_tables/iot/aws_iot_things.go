@@ -74,7 +74,7 @@ func (x *TableAwsIotThingsGenerator) GetColumns() []*schema.Column {
 		table_schema_generator.NewColumnBuilder().ColumnName("region").ColumnType(schema.ColumnTypeString).
 			Extractor(aws_client.AwsRegionIDExtractor()).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("thing_name").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("version").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("version").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("principals").ColumnType(schema.ColumnTypeStringArray).
 			Extractor(column_value_extractor.WrapperExtractFunction(func(ctx context.Context, clientMeta *schema.ClientMeta, client any,
 				task *schema.DataSourcePullTask, row *schema.Row, column *schema.Column, result any) (any, *schema.Diagnostics) {
@@ -84,8 +84,8 @@ func (x *TableAwsIotThingsGenerator) GetColumns() []*schema.Column {
 					cl := client.(*aws_client.Client)
 					svc := cl.AwsServices().IOT
 					input := iot.ListThingPrincipalsInput{
-						ThingName:	i.ThingName,
-						MaxResults:	aws.Int32(250),
+						ThingName:  i.ThingName,
+						MaxResults: aws.Int32(250),
 					}
 					var principals []string
 

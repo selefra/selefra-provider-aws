@@ -88,17 +88,17 @@ func (x *TableAwsRoute53TrafficPoliciesGenerator) GetColumns() []*schema.Column 
 
 				cl := client.(*aws_client.Client)
 				return arn.ARN{
-					Partition:	cl.Partition,
-					Service:	"route53",
-					Region:		"",
-					AccountID:	"",
-					Resource:	strings.Join(ids, "/"),
+					Partition: cl.Partition,
+					Service:   "route53",
+					Region:    "",
+					AccountID: "",
+					Resource:  strings.Join(ids, "/"),
 				}.String(), nil
 			})).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("latest_version").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("latest_version").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("name").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("traffic_policy_count").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("traffic_policy_count").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("type").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).SetUnique().Description("primary keys value md5").
 			Extractor(column_value_extractor.PrimaryKeysID()).Build(),

@@ -67,10 +67,10 @@ func (x *TableAwsRoute53HostedZonesGenerator) GetDataSource() *schema.DataSource
 						delegationSetId = gotHostedZone.DelegationSet.Id
 					}
 					resultChannel <- &Route53HostedZoneWrapper{
-						HostedZone:		h,
-						Tags:			aws_client.TagsToMap(getRoute53tagsByResourceID(*h.Id, tagsResponse.ResourceTagSets)),
-						DelegationSetId:	delegationSetId,
-						VPCs:			gotHostedZone.VPCs,
+						HostedZone:      h,
+						Tags:            aws_client.TagsToMap(getRoute53tagsByResourceID(*h.Id, tagsResponse.ResourceTagSets)),
+						DelegationSetId: delegationSetId,
+						VPCs:            gotHostedZone.VPCs,
 					}
 				}
 				return nil
@@ -140,7 +140,7 @@ func (x *TableAwsRoute53HostedZonesGenerator) GetColumns() []*schema.Column {
 		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).SetUnique().Description("primary keys value md5").
 			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("resource_record_set_count").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("resource_record_set_count").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("vpcs").ColumnType(schema.ColumnTypeJSON).
 			Extractor(column_value_extractor.StructSelector("VPCs")).Build(),
 	}

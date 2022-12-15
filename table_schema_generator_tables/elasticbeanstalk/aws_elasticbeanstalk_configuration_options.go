@@ -39,8 +39,8 @@ func (x *TableAwsElasticbeanstalkConfigurationOptionsGenerator) GetDataSource() 
 			c := client.(*aws_client.Client)
 			svc := c.AwsServices().ElasticBeanstalk
 			configOptionsIn := elasticbeanstalk.DescribeConfigurationOptionsInput{
-				ApplicationName:	p.ApplicationName,
-				EnvironmentName:	p.EnvironmentName,
+				ApplicationName: p.ApplicationName,
+				EnvironmentName: p.EnvironmentName,
 			}
 			output, err := svc.DescribeConfigurationOptions(ctx, &configOptionsIn)
 			if err != nil {
@@ -55,7 +55,7 @@ func (x *TableAwsElasticbeanstalkConfigurationOptionsGenerator) GetDataSource() 
 
 			for _, option := range output.Options {
 				resultChannel <- ConfigurationOptionDescriptionWrapper{
-					ConfigurationOptionDescription:	option, ApplicationArn: c.ARN("elasticbeanstalk", "application", *p.ApplicationName),
+					ConfigurationOptionDescription: option, ApplicationArn: c.ARN("elasticbeanstalk", "application", *p.ApplicationName),
 				}
 			}
 
@@ -66,7 +66,7 @@ func (x *TableAwsElasticbeanstalkConfigurationOptionsGenerator) GetDataSource() 
 
 type ConfigurationOptionDescriptionWrapper struct {
 	types.ConfigurationOptionDescription
-	ApplicationArn	string
+	ApplicationArn string
 }
 
 func (x *TableAwsElasticbeanstalkConfigurationOptionsGenerator) GetExpandClientTask() func(ctx context.Context, clientMeta *schema.ClientMeta, client any, task *schema.DataSourcePullTask) []*schema.ClientTaskContext {
@@ -79,7 +79,7 @@ func (x *TableAwsElasticbeanstalkConfigurationOptionsGenerator) GetColumns() []*
 			Extractor(aws_client.AwsAccountIDExtractor()).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("environment_id").ColumnType(schema.ColumnTypeString).
 			Extractor(column_value_extractor.ParentColumnValue("id")).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("min_value").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("min_value").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).SetUnique().Description("random id").
 			Extractor(column_value_extractor.UUID()).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("namespace").ColumnType(schema.ColumnTypeString).Build(),
@@ -90,11 +90,11 @@ func (x *TableAwsElasticbeanstalkConfigurationOptionsGenerator) GetColumns() []*
 		table_schema_generator.NewColumnBuilder().ColumnName("region").ColumnType(schema.ColumnTypeString).
 			Extractor(aws_client.AwsRegionIDExtractor()).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("default_value").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("max_value").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("max_value").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("regex").ColumnType(schema.ColumnTypeJSON).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("application_arn").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("change_severity").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("max_length").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("max_length").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("name").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("value_options").ColumnType(schema.ColumnTypeStringArray).Build(),
 	}

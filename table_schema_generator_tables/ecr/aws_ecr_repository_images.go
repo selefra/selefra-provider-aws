@@ -44,8 +44,8 @@ func (x *TableAwsEcrRepositoryImagesGenerator) GetDataSource() *schema.DataSourc
 			maxResults := int32(1000)
 			p := task.ParentRawResult.(types.Repository)
 			config := ecr.DescribeImagesInput{
-				RepositoryName:	p.RepositoryName,
-				MaxResults:	&maxResults,
+				RepositoryName: p.RepositoryName,
+				MaxResults:     &maxResults,
 			}
 			c := client.(*aws_client.Client)
 			svc := c.AwsServices().ECR
@@ -81,11 +81,11 @@ func (x *TableAwsEcrRepositoryImagesGenerator) GetColumns() []*schema.Column {
 					item := result.(types.ImageDetail)
 
 					a := arn.ARN{
-						Partition:	cl.Partition,
-						Service:	"ecr",
-						Region:		cl.Region,
-						AccountID:	cl.AccountID,
-						Resource:	"repository_image/" + *item.RegistryId + "/" + *item.ImageDigest,
+						Partition: cl.Partition,
+						Service:   "ecr",
+						Region:    cl.Region,
+						AccountID: cl.AccountID,
+						Resource:  "repository_image/" + *item.RegistryId + "/" + *item.ImageDigest,
 					}
 					return a.String(), nil
 				}
@@ -114,7 +114,7 @@ func (x *TableAwsEcrRepositoryImagesGenerator) GetColumns() []*schema.Column {
 		table_schema_generator.NewColumnBuilder().ColumnName("image_pushed_at").ColumnType(schema.ColumnTypeTimestamp).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("image_scan_findings_summary").ColumnType(schema.ColumnTypeJSON).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("image_scan_status").ColumnType(schema.ColumnTypeJSON).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("image_size_in_bytes").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("image_size_in_bytes").ColumnType(schema.ColumnTypeBigInt).Build(),
 	}
 }
 

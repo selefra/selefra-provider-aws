@@ -5,9 +5,9 @@ import (
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/aws/arn"
 	"github.com/aws/aws-sdk-go-v2/service/directconnect"
 	"github.com/aws/aws-sdk-go-v2/service/directconnect/types"
-	"github.com/aws/aws-sdk-go-v2/aws/arn"
 	"github.com/selefra/selefra-provider-aws/aws_client"
 	"github.com/selefra/selefra-provider-aws/table_schema_generator"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
@@ -84,14 +84,14 @@ func (x *TableAwsDirectconnectGatewaysGenerator) GetColumns() []*schema.Column {
 
 				cl := client.(*aws_client.Client)
 				return arn.ARN{
-					Partition:	cl.Partition,
-					Service:	"directconnect",
-					Region:		"",
-					AccountID:	cl.AccountID,
-					Resource:	strings.Join(ids, "/"),
+					Partition: cl.Partition,
+					Service:   "directconnect",
+					Region:    "",
+					AccountID: cl.AccountID,
+					Resource:  strings.Join(ids, "/"),
 				}.String(), nil
 			})).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("amazon_side_asn").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("amazon_side_asn").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("direct_connect_gateway_name").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("direct_connect_gateway_state").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("owner_account").ColumnType(schema.ColumnTypeString).Build(),

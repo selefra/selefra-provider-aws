@@ -90,11 +90,11 @@ func (x *TableAwsDirectconnectConnectionsGenerator) GetColumns() []*schema.Colum
 
 				cl := client.(*aws_client.Client)
 				return arn.ARN{
-					Partition:	cl.Partition,
-					Service:	"directconnect",
-					Region:		cl.Region,
-					AccountID:	cl.AccountID,
-					Resource:	strings.Join(ids, "/"),
+					Partition: cl.Partition,
+					Service:   "directconnect",
+					Region:    cl.Region,
+					AccountID: cl.AccountID,
+					Resource:  strings.Join(ids, "/"),
 				}.String(), nil
 			})).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("aws_device_v2").ColumnType(schema.ColumnTypeString).Build(),
@@ -110,7 +110,7 @@ func (x *TableAwsDirectconnectConnectionsGenerator) GetColumns() []*schema.Colum
 			Extractor(aws_client.AwsRegionIDExtractor()).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("tags").ColumnType(schema.ColumnTypeJSON).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("bandwidth").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("vlan").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("vlan").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).SetUnique().Description("primary keys value md5").
 			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
 	}

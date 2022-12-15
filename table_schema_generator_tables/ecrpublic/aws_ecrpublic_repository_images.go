@@ -44,8 +44,8 @@ func (x *TableAwsEcrpublicRepositoryImagesGenerator) GetDataSource() *schema.Dat
 			maxResults := int32(1000)
 			p := task.ParentRawResult.(types.Repository)
 			config := ecrpublic.DescribeImagesInput{
-				RepositoryName:	p.RepositoryName,
-				MaxResults:	&maxResults,
+				RepositoryName: p.RepositoryName,
+				MaxResults:     &maxResults,
 			}
 			c := client.(*aws_client.Client)
 			svc := c.AwsServices().ECRPublic
@@ -92,11 +92,11 @@ func (x *TableAwsEcrpublicRepositoryImagesGenerator) GetColumns() []*schema.Colu
 					item := result.(types.ImageDetail)
 
 					a := arn.ARN{
-						Partition:	cl.Partition,
-						Service:	"ecr",
-						Region:		cl.Region,
-						AccountID:	cl.AccountID,
-						Resource:	"repository_image/" + *item.RegistryId + "/" + *item.ImageDigest,
+						Partition: cl.Partition,
+						Service:   "ecr",
+						Region:    cl.Region,
+						AccountID: cl.AccountID,
+						Resource:  "repository_image/" + *item.RegistryId + "/" + *item.ImageDigest,
 					}
 					return a.String(), nil
 				}
@@ -109,7 +109,7 @@ func (x *TableAwsEcrpublicRepositoryImagesGenerator) GetColumns() []*schema.Colu
 			})).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("artifact_media_type").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("image_digest").ColumnType(schema.ColumnTypeString).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("image_size_in_bytes").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("image_size_in_bytes").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).SetUnique().Description("primary keys value md5").
 			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
 	}

@@ -61,7 +61,7 @@ var groupNotFoundRegex = regexp.MustCompile(`AutoScalingGroup name not found|Gro
 
 type AutoScalingGroupWrapper struct {
 	types.AutoScalingGroup
-	NotificationConfigurations	[]types.NotificationConfiguration
+	NotificationConfigurations []types.NotificationConfiguration
 }
 
 func isAutoScalingGroupNotExistsError(err error) bool {
@@ -91,13 +91,13 @@ func (x *TableAwsAutoscalingGroupLifecycleHooksGenerator) GetColumns() []*schema
 			Extractor(column_value_extractor.ParentColumnValue("selefra_id")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("region").ColumnType(schema.ColumnTypeString).
 			Extractor(aws_client.AwsRegionIDExtractor()).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("heartbeat_timeout").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("heartbeat_timeout").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("notification_metadata").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("auto_scaling_group_name").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("default_result").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("role_arn").ColumnType(schema.ColumnTypeString).
 			Extractor(column_value_extractor.StructSelector("RoleARN")).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("global_timeout").ColumnType(schema.ColumnTypeInt).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("global_timeout").ColumnType(schema.ColumnTypeBigInt).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("lifecycle_transition").ColumnType(schema.ColumnTypeString).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).SetUnique().Description("random id").
 			Extractor(column_value_extractor.UUID()).Build(),
