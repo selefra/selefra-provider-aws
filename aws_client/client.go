@@ -71,10 +71,6 @@ type AwsAccount struct {
 	source                 string
 }
 
-type AwsProviderConfigs struct {
-	Providers []AwsProviderConfig `yaml:"providers"  mapstructure:"providers"`
-}
-
 const (
 	DefaultMaxAttempts = 10
 	DefaultMaxBackoff  = 30
@@ -227,17 +223,9 @@ type Client struct {
 	accountAwsServiceManager *AwsServicesManager
 }
 
-func NewClients(configs AwsProviderConfigs) ([]*Client, error) {
-	var clients []*Client
+func NewClients(config AwsProviderConfig) ([]*Client, error) {
 
-	for _, c := range configs.Providers {
-		cls, err := newClient(c)
-		if err != nil {
-			return nil, err
-		}
-		clients = append(clients, cls...)
-	}
-	return clients, nil
+	return newClient(config)
 }
 
 func newClient(config AwsProviderConfig) ([]*Client, error) {

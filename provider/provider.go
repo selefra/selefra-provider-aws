@@ -2,6 +2,7 @@ package provider
 
 import (
 	"context"
+
 	"github.com/selefra/selefra-provider-aws/aws_client"
 	"github.com/selefra/selefra-provider-sdk/provider"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
@@ -17,14 +18,10 @@ func GetProvider() *provider.Provider {
 		TableList: GenTables(),
 		ClientMeta: schema.ClientMeta{
 			InitClient: func(ctx context.Context, clientMeta *schema.ClientMeta, config *viper.Viper) ([]any, *schema.Diagnostics) {
-				var awsConfig aws_client.AwsProviderConfigs
+				var awsConfig aws_client.AwsProviderConfig
 				err := config.Unmarshal(&awsConfig)
 				if err != nil {
 					return nil, schema.NewDiagnostics().AddErrorMsg("analysis config err: %s", err.Error())
-				}
-
-				if len(awsConfig.Providers) == 0 {
-					awsConfig.Providers = append(awsConfig.Providers, aws_client.AwsProviderConfig{})
 				}
 
 				clients, err := aws_client.NewClients(awsConfig)
@@ -82,7 +79,7 @@ func GetProvider() *provider.Provider {
 #max_backoff: 30`
 			},
 			Validation: func(ctx context.Context, config *viper.Viper) *schema.Diagnostics {
-				var awsConfig aws_client.AwsProviderConfigs
+				var awsConfig aws_client.AwsProviderConfig
 				err := config.Unmarshal(&awsConfig)
 				if err != nil {
 					return schema.NewDiagnostics().AddErrorMsg("analysis config err: %s", err.Error())
