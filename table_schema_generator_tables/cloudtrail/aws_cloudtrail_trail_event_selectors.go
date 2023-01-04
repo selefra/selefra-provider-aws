@@ -45,6 +45,7 @@ func (x *TableAwsCloudtrailTrailEventSelectorsGenerator) GetDataSource() *schema
 				return schema.NewDiagnosticsErrorPullTable(task.Table, err)
 
 			}
+			// TODO 2023-1-4 15:31:58 save AdvancedEventSelectors to table  for policy
 			resultChannel <- response.EventSelectors
 			return nil
 		},
@@ -53,7 +54,7 @@ func (x *TableAwsCloudtrailTrailEventSelectorsGenerator) GetDataSource() *schema
 
 type CloudTrailWrapper struct {
 	types.Trail
-	Tags	map[string]string
+	Tags map[string]string
 }
 
 func (x *TableAwsCloudtrailTrailEventSelectorsGenerator) GetExpandClientTask() func(ctx context.Context, clientMeta *schema.ClientMeta, client any, task *schema.DataSourcePullTask) []*schema.ClientTaskContext {
