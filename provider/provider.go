@@ -99,7 +99,7 @@ func GetProvider() *provider.Provider {
 			DataSourcePullResultAutoExpand: true,
 		},
 		ErrorsHandlerMeta: schema.ErrorsHandlerMeta{
-			IgnoredErrors: []schema.IgnoredError{schema.IgnoredErrorOnSaveResult},
+			IgnoredErrors: []schema.IgnoredError{schema.IgnoredErrorAll},
 		},
 	}
 }
