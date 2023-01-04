@@ -5,8 +5,8 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/service/ecs"
 	"github.com/aws/aws-sdk-go-v2/service/ecs/types"
-	"github.com/selefra/selefra-provider-aws/table_schema_generator"
 	"github.com/selefra/selefra-provider-aws/aws_client"
+	"github.com/selefra/selefra-provider-aws/table_schema_generator"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
 	"github.com/selefra/selefra-provider-sdk/provider/transformer/column_value_extractor"
 )
