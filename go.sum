@@ -481,7 +481,6 @@ github.com/satori/go.uuid v1.2.0/go.mod h1:dA0hQrYB0VpLJoorglMZABFdXlWrHn1NEOzdh
 
 github.com/selefra/selefra-provider-sdk v0.0.17-0.20230104133150-ab0d764fddb0 h1:x43N1XVftifChhNXjkylhMqAHmpkZpVtPJ6lGw/JY4Q=
 github.com/selefra/selefra-provider-sdk v0.0.17-0.20230104133150-ab0d764fddb0/go.mod h1:o0/4RWphTrg78ja9oedg9EEMpE4A4y+DeVzlnkpnq1s=
-
 github.com/selefra/selefra-utils v0.0.2 h1:Z3cAmMoTr6XePiZJakRmLVi7CvMjZ4ypt8TO73M03F0=
 github.com/selefra/selefra-utils v0.0.2/go.mod h1:LPY6RNU12IniRH3xz7yS7xF10YH3emQ6NWrn6UuBjEk=
 github.com/shopspring/decimal v0.0.0-20180709203117-cd690d0c9e24/go.mod h1:M+9NzErvs504Cn4c5DxATwIqPbtswREoFCre64PpcG4=
